@@ -124,6 +124,24 @@ public class AddressBookSystem {
 			System.out.println(names);
 		}
 	}
+	public void countByCity(String cityName)
+	{
+		for(Map.Entry<String, AddressBookMain> entry : addressBookMap.entrySet())
+		{
+			AddressBookMain addr = entry.getValue();
+			Integer count = (int) addr.cityMap.entrySet().stream().filter(str -> str.getKey().equals(cityName)).map(Map.Entry::getValue).findFirst().orElse(null).size();
+			System.out.println("Count for address book "+entry.getKey()+" is: "+count);
+		}
+	}
+	public void countByState(String stateName)
+	{
+		for(Map.Entry<String, AddressBookMain> entry : addressBookMap.entrySet())
+		{
+			AddressBookMain addr = entry.getValue();
+			Integer count = (int) addr.stateMap.entrySet().stream().filter(str -> str.getKey().equals(stateName)).map(Map.Entry::getValue).findFirst().orElse(null).size();
+			System.out.println("Count for address book "+entry.getKey()+" is: "+count);
+		}
+	}
 		
 	
 	public static void main(String args[]) {
@@ -132,7 +150,7 @@ public class AddressBookSystem {
 		boolean flag1 = true;
 		while(flag1)
 		{
-			System.out.println("Choose what to do in the system\n\n 1. Add Address Book \n 2. Search person by City \n 3. Search person by State \n 4. View Person by City \n 5. View Person By State \n 6. Exit \n");
+			System.out.println("Choose what to do in the system\n\n 1. Add Address Book \n 2. Search person by City \n 3. Search person by State \n 4. View Person by City \n 5. View Person By State \n 6. Count by City \n 7. Count By State \n 8. Exit \n");
 			q = new Scanner(System.in);
 			int choice = q.nextInt();
 			switch(choice)
@@ -198,8 +216,31 @@ public class AddressBookSystem {
 					String stateName1 = s3.nextLine();
 					ads.viewPersonByState(stateName1);
 					break;
-					
 				case 6:
+					//Count by city
+					if(ads.addressBookMap.size()==0)
+					{
+						System.out.println("No address book in system!");
+						break;
+					}
+					System.out.println("Enter city name: ");
+					Scanner s4 = new Scanner(System.in);
+					String cityName2 = s4.nextLine();
+					ads.countByCity(cityName2);
+					break;
+				case 7:
+					//Count by state
+					if(ads.addressBookMap.size()==0)
+					{
+						System.out.println("No address book in system!");
+						break;
+					}
+					System.out.println("Enter state name: ");
+					Scanner s5 = new Scanner(System.in);
+					String stateName2 = s5.nextLine();
+					ads.countByState(stateName2);
+					break;
+				case 8:
 					//Exit
 					System.out.println("-----Exiting from Address Book System-----");
 					flag1 = false;
@@ -209,5 +250,4 @@ public class AddressBookSystem {
 		}
 		
 	}
-
 }
