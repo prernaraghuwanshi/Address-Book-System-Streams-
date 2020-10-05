@@ -2,7 +2,9 @@ package com.bridgelabz.addressbookstreams;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class AddressBookMain {
 	Scanner sc = new Scanner(System.in);
@@ -16,11 +18,21 @@ public class AddressBookMain {
 		contactList = new ArrayList<Contacts>();
 		contactMap = new HashMap<String,Contacts>();
 	}
+	
 	public void addContact()
 	{
 		System.out.println("-----Add Contact Details-----");
 		System.out.println("Enter First Name: ");
 		String firstName = sc.nextLine();
+		
+		List<String> names = contactList.stream().map(Contacts::getFirstName).collect(Collectors.toList());
+		boolean checkDuplicateName = names.stream().anyMatch(str -> firstName.equals(str));
+		if(checkDuplicateName == true)
+		{
+			System.out.println("First Name exists in address book!");
+			return;
+		}
+				
 		System.out.println("Enter Last Name: ");
 		String lastName = sc.nextLine();
 		System.out.println("Enter Address: ");

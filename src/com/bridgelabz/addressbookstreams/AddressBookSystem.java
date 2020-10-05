@@ -67,7 +67,7 @@ public class AddressBookSystem {
 		boolean flag1 = true;
 		while(flag1)
 		{
-			System.out.println("Choose what to do in the system/n/n 1. Add Address Book /n 2. Exit /n");
+			System.out.println("Choose what to do in the system\n\n 1. Add Address Book \n 2. Exit \n");
 			q = new Scanner(System.in);
 			int choice = q.nextInt();
 			switch(choice)
