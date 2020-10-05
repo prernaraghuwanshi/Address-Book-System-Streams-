@@ -1,6 +1,7 @@
 package com.bridgelabz.addressbookstreams;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -142,6 +143,18 @@ public class AddressBookSystem {
 			System.out.println("Count for address book "+entry.getKey()+" is: "+count);
 		}
 	}
+	public void sortByName()
+	{
+		for(Map.Entry<String, AddressBookMain> entry : addressBookMap.entrySet())
+		{
+			AddressBookMain addr = entry.getValue();
+			List<Contacts> sortedList = addr.contactList.stream().sorted(Comparator.comparing(Contacts::getFirstName)).collect(Collectors.toList());
+			for(Contacts c:sortedList)
+			{
+				System.out.println(c.firstName+" "+ c.lastName);
+			}
+		}
+	}
 		
 	
 	public static void main(String args[]) {
@@ -150,7 +163,8 @@ public class AddressBookSystem {
 		boolean flag1 = true;
 		while(flag1)
 		{
-			System.out.println("Choose what to do in the system\n\n 1. Add Address Book \n 2. Search person by City \n 3. Search person by State \n 4. View Person by City \n 5. View Person By State \n 6. Count by City \n 7. Count By State \n 8. Exit \n");
+			System.out.println("Choose what to do in the system\n\n 1. Add Address Book \n 2. Search person by City \n 3. Search person by State \n 4. View Person by City \n "
+					+ "5. View Person By State \n 6. Count by City \n 7. Count By State \n 8. Sorted list of names \n 9. Exit \n");
 			q = new Scanner(System.in);
 			int choice = q.nextInt();
 			switch(choice)
@@ -241,6 +255,9 @@ public class AddressBookSystem {
 					ads.countByState(stateName2);
 					break;
 				case 8:
+					ads.sortByName();
+					break;
+				case 9:
 					//Exit
 					System.out.println("-----Exiting from Address Book System-----");
 					flag1 = false;
