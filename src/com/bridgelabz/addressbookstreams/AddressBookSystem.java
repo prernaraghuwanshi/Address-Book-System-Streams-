@@ -155,6 +155,42 @@ public class AddressBookSystem {
 			}
 		}
 	}
+	public void sortByCity()
+	{
+		for(Map.Entry<String, AddressBookMain> entry : addressBookMap.entrySet())
+		{
+			AddressBookMain addr = entry.getValue();
+			List<Contacts> sortedList = addr.contactList.stream().sorted(Comparator.comparing(Contacts::getCity)).collect(Collectors.toList());
+			for(Contacts c:sortedList)
+			{
+				System.out.println(c.firstName+" "+ c.lastName+" "+c.city);
+			}
+		}
+	}
+	public void sortByState()
+	{
+		for(Map.Entry<String, AddressBookMain> entry : addressBookMap.entrySet())
+		{
+			AddressBookMain addr = entry.getValue();
+			List<Contacts> sortedList = addr.contactList.stream().sorted(Comparator.comparing(Contacts::getState)).collect(Collectors.toList());
+			for(Contacts c:sortedList)
+			{
+				System.out.println(c.firstName+" "+ c.lastName+" "+c.state);
+			}
+		}
+	}
+	public void sortByZip()
+	{
+		for(Map.Entry<String, AddressBookMain> entry : addressBookMap.entrySet())
+		{
+			AddressBookMain addr = entry.getValue();
+			List<Contacts> sortedList = addr.contactList.stream().sorted(Comparator.comparing(Contacts::getZip)).collect(Collectors.toList());
+			for(Contacts c:sortedList)
+			{
+				System.out.println(c.firstName+" "+ c.lastName+" "+c.zip);
+			}
+		}
+	}
 		
 	
 	public static void main(String args[]) {
@@ -164,7 +200,8 @@ public class AddressBookSystem {
 		while(flag1)
 		{
 			System.out.println("Choose what to do in the system\n\n 1. Add Address Book \n 2. Search person by City \n 3. Search person by State \n 4. View Person by City \n "
-					+ "5. View Person By State \n 6. Count by City \n 7. Count By State \n 8. Sorted list of names \n 9. Exit \n");
+					+ "5. View Person By State \n 6. Count by City \n 7. Count By State \n 8. Sorted list of names \n 9. Sort by city \n 10. Sort by state \n 11. Sort by ZIP \n"
+					+ " 12. Exit \n");
 			q = new Scanner(System.in);
 			int choice = q.nextInt();
 			switch(choice)
@@ -255,9 +292,22 @@ public class AddressBookSystem {
 					ads.countByState(stateName2);
 					break;
 				case 8:
+					//Sort by first name
 					ads.sortByName();
 					break;
 				case 9:
+					//Sort by city
+					ads.sortByCity();
+					break;
+				case 10:
+					//Sort by state
+					ads.sortByState();
+					break;
+				case 11:
+					//Sort by ZIP
+					ads.sortByZip();
+					break;
+				case 12:
 					//Exit
 					System.out.println("-----Exiting from Address Book System-----");
 					flag1 = false;

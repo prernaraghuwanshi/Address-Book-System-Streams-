@@ -25,5 +25,17 @@ public class Contacts {
 	{
 		return firstName;
 	}
-	
+	public String getCity()
+	{
+		return city;
+		
+	}
+	public String getState() {
+		return state;
+		
+	}
+	public String getZip()
+	{
+		return zip;
+	}
 }
