@@ -30,7 +30,7 @@ public class AddressBookMain {
 		String firstName = sc.nextLine();
 		
 		List<String> names = contactList.stream().map(Contacts::getFirstName).collect(Collectors.toList());
-		boolean checkDuplicateName = names.stream().anyMatch(str -> firstName.equals(str));
+		boolean checkDuplicateName = names.stream().anyMatch(name -> firstName.equals(name));
 		if(checkDuplicateName == true)
 		{
 			System.out.println("First Name exists in address book!");

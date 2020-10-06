@@ -73,12 +73,9 @@ public class AddressBookSystem {
 		for(Map.Entry<String, AddressBookMain> entry : addressBookMap.entrySet())
 		{
 			AddressBookMain addr = entry.getValue();
-			List<Contacts> contactsList = addr.contactList.stream().filter(str -> str.city.equals(cityName)).collect(Collectors.toList());
+			List<Contacts> contactsList = addr.contactList.stream().filter(contact -> contact.city.equals(cityName)).collect(Collectors.toList());
 			System.out.println("Person from "+cityName+" in Address Book "+entry.getKey()+" are: ");
-			for(Contacts c:contactsList)
-			{
-				System.out.println(c.firstName+" "+ c.lastName);
-			}
+			contactsList.forEach(contact -> System.out.println(contact.firstName+" "+ contact.lastName) );
 		}
 	}
 	public void getPersonByState(String stateName)
@@ -86,12 +83,9 @@ public class AddressBookSystem {
 		for(Map.Entry<String, AddressBookMain> entry : addressBookMap.entrySet())
 		{
 			AddressBookMain addr = entry.getValue();
-			List<Contacts> contactsList = addr.contactList.stream().filter(str -> str.state.equals(stateName)).collect(Collectors.toList());
+			List<Contacts> contactsList = addr.contactList.stream().filter(contact -> contact.state.equals(stateName)).collect(Collectors.toList());
 			System.out.println("Person from "+stateName+" in Address Book "+entry.getKey()+" are: ");
-			for(Contacts c:contactsList)
-			{
-				System.out.println(c.firstName+" "+ c.lastName);
-			}
+			contactsList.forEach(contact -> System.out.println(contact.firstName+" "+ contact.lastName) );
 		}
 	}
 	
@@ -149,10 +143,7 @@ public class AddressBookSystem {
 		{
 			AddressBookMain addr = entry.getValue();
 			List<Contacts> sortedList = addr.contactList.stream().sorted(Comparator.comparing(Contacts::getFirstName)).collect(Collectors.toList());
-			for(Contacts c:sortedList)
-			{
-				System.out.println(c.firstName+" "+ c.lastName);
-			}
+			sortedList.forEach(contact -> System.out.println(contact.firstName+" "+ contact.lastName) );
 		}
 	}
 	public void sortByCity()
@@ -161,10 +152,7 @@ public class AddressBookSystem {
 		{
 			AddressBookMain addr = entry.getValue();
 			List<Contacts> sortedList = addr.contactList.stream().sorted(Comparator.comparing(Contacts::getCity)).collect(Collectors.toList());
-			for(Contacts c:sortedList)
-			{
-				System.out.println(c.firstName+" "+ c.lastName+" "+c.city);
-			}
+			sortedList.forEach(contact -> System.out.println(contact.firstName+" "+ contact.lastName) );
 		}
 	}
 	public void sortByState()
@@ -173,10 +161,7 @@ public class AddressBookSystem {
 		{
 			AddressBookMain addr = entry.getValue();
 			List<Contacts> sortedList = addr.contactList.stream().sorted(Comparator.comparing(Contacts::getState)).collect(Collectors.toList());
-			for(Contacts c:sortedList)
-			{
-				System.out.println(c.firstName+" "+ c.lastName+" "+c.state);
-			}
+			sortedList.forEach(contact -> System.out.println(contact.firstName+" "+ contact.lastName) );
 		}
 	}
 	public void sortByZip()
@@ -185,10 +170,7 @@ public class AddressBookSystem {
 		{
 			AddressBookMain addr = entry.getValue();
 			List<Contacts> sortedList = addr.contactList.stream().sorted(Comparator.comparing(Contacts::getZip)).collect(Collectors.toList());
-			for(Contacts c:sortedList)
-			{
-				System.out.println(c.firstName+" "+ c.lastName+" "+c.zip);
-			}
+			sortedList.forEach(contact -> System.out.println(contact.firstName+" "+ contact.lastName) );
 		}
 	}
 		
