@@ -9,34 +9,29 @@ import java.util.stream.Collectors;
 public class AddressBookMain {
 	Scanner sc = new Scanner(System.in);
 	public ArrayList<Contacts> contactList;
-	public HashMap<String,Contacts> contactMap;
-	HashMap<String,ArrayList<String>> cityMap;
-	HashMap<String,ArrayList<String>> stateMap;
-	//HashMap<name,AddressBookMain> addressBookSystem = new HashMap<name,AddressBookMain>();
-	//private static Scanner i;
-	
-	public AddressBookMain()
-	{
+	public HashMap<String, Contacts> contactMap;
+	HashMap<String, ArrayList<String>> cityMap;
+	HashMap<String, ArrayList<String>> stateMap;
+
+	// Constructor
+	public AddressBookMain() {
 		contactList = new ArrayList<Contacts>();
-		contactMap = new HashMap<String,Contacts>();
-		cityMap = new HashMap<String,ArrayList<String>>();
-		stateMap = new HashMap<String,ArrayList<String>>();
+		contactMap = new HashMap<String, Contacts>();
+		cityMap = new HashMap<String, ArrayList<String>>();
+		stateMap = new HashMap<String, ArrayList<String>>();
 	}
-	
-	public void addContact()
-	{
+
+	// Add contact to Address Book
+	public void addContact() {
 		System.out.println("-----Add Contact Details-----");
 		System.out.println("Enter First Name: ");
 		String firstName = sc.nextLine();
-		
 		List<String> names = contactList.stream().map(Contacts::getFirstName).collect(Collectors.toList());
 		boolean checkDuplicateName = names.stream().anyMatch(name -> firstName.equals(name));
-		if(checkDuplicateName == true)
-		{
+		if (checkDuplicateName == true) {
 			System.out.println("First Name exists in address book!");
 			return;
 		}
-				
 		System.out.println("Enter Last Name: ");
 		String lastName = sc.nextLine();
 		System.out.println("Enter Address: ");
@@ -48,52 +43,38 @@ public class AddressBookMain {
 		System.out.println("Enter ZIP Code: ");
 		String zip = sc.nextLine();
 		System.out.println("Enter Phone Number: ");
-		String phone =sc.nextLine();
+		String phone = sc.nextLine();
 		System.out.println("Enter Email Address: ");
 		String email = sc.nextLine();
-		
 		Contacts c = new Contacts(firstName, lastName, address, city, state, zip, phone, email);
 		contactList.add(c);
 		contactMap.put(firstName, c);
-		if(!cityMap.isEmpty() && cityMap.containsKey(city))
-		{
-			
+		if (!cityMap.isEmpty() && cityMap.containsKey(city)) {
 			ArrayList<String> nameList = cityMap.get(city);
 			nameList.add(firstName);
 			cityMap.replace(city, nameList);
-				
-		}
-		else
-		{
+		} else {
 			ArrayList<String> nameList = new ArrayList<String>();
 			nameList.add(firstName);
-			cityMap.put(city,nameList);
+			cityMap.put(city, nameList);
 		}
-		
-		if(!stateMap.isEmpty() && stateMap.containsKey(state))
-		{
-			
+		if (!stateMap.isEmpty() && stateMap.containsKey(state)) {
 			ArrayList<String> nameList = stateMap.get(state);
 			nameList.add(firstName);
 			stateMap.replace(state, nameList);
-				
-		}
-		else
-		{
+		} else {
 			ArrayList<String> nameList = new ArrayList<String>();
 			nameList.add(firstName);
-			stateMap.put(state,nameList);
+			stateMap.put(state, nameList);
 		}
 		System.out.println("-----Contact Added Successfully-----");
 		System.out.println("Number of contacts in Address Book: " + contactList.size());
 	}
-	
-	public void editContact(String firstNameEdit)
-	{
+
+	// Edit contact in Address Book when firstName inputted
+	public void editContact(String firstNameEdit) {
 		System.out.println("-----Edit Contact-----");
-		
-		if(contactMap.containsKey(firstNameEdit))
-		{
+		if (contactMap.containsKey(firstNameEdit)) {
 			Contacts cedit = contactMap.get(firstNameEdit);
 			System.out.println("Enter First Name: ");
 			cedit.firstName = sc.nextLine();
@@ -108,47 +89,41 @@ public class AddressBookMain {
 			System.out.println("Enter ZIP Code: ");
 			cedit.zip = sc.nextLine();
 			System.out.println("Enter Phone Number: ");
-			cedit.phoneNo =sc.nextLine();
+			cedit.phoneNo = sc.nextLine();
 			System.out.println("Enter Email Address: ");
 			cedit.email = sc.nextLine();
 			contactMap.remove(firstNameEdit);
 			contactMap.put(cedit.firstName, cedit);
 			System.out.println("-----Contact Details Updated-----");
 			System.out.println("Number of contacts in Address Book: " + contactList.size());
-			
-		}
-		else
+		} else
 			System.out.println("-----Name not found in Address Book-----");
-		
 	}
-	public void displayContact(int i)
-	{
+
+	// Display A Contact
+	public void displayContact(int i) {
 		System.out.println("-----Displaying Contact-----");
-		System.out.println("First Name: "+contactList.get(i).firstName);
-		System.out.println("Last Name: "+contactList.get(i).lastName);
-		System.out.println("Address: "+contactList.get(i).address);
-		System.out.println("City: "+contactList.get(i).city);
-		System.out.println("State: "+contactList.get(i).state);
-		System.out.println("ZIP Code: "+contactList.get(i).zip);
-		System.out.println("Phone Number: "+contactList.get(i).phoneNo);
-		System.out.println("Email: "+contactList.get(i).email);
+		System.out.println("First Name: " + contactList.get(i).firstName);
+		System.out.println("Last Name: " + contactList.get(i).lastName);
+		System.out.println("Address: " + contactList.get(i).address);
+		System.out.println("City: " + contactList.get(i).city);
+		System.out.println("State: " + contactList.get(i).state);
+		System.out.println("ZIP Code: " + contactList.get(i).zip);
+		System.out.println("Phone Number: " + contactList.get(i).phoneNo);
+		System.out.println("Email: " + contactList.get(i).email);
 		System.out.println("  ");
-		
 	}
-	public void deleteContact(String firstName)
-	{
+
+	// Delete a contact be firstName
+	public void deleteContact(String firstName) {
 		System.out.println("-----Deleting Contact-----");
-		if(contactMap.containsKey(firstName))
-		{
+		if (contactMap.containsKey(firstName)) {
 			Contacts c = contactMap.get(firstName);
 			contactMap.remove(firstName);
 			contactList.remove(c);
 			System.out.println("-----Contact Deleted Successfully-----");
 			System.out.println("Number of contacts in Address Book: " + contactList.size());
-			
-		}
-		else
+		} else
 			System.out.println("-----Name not found in Address Book-----");
 	}
-
 }
